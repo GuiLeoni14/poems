@@ -24,9 +24,9 @@ export default function PagePost({ post }: PagePostProps) {
           backgroundImage: `url('${post.cover}')`,
         }}
       ></div>
-      <div className="container max-w-6xl mx-auto -mt-40 bg-white p-4 rounded-md">
+      <div className="container max-w-6xl mx-auto -mt-40 bg-white p-4">
         <div className="flex gap-4">
-          <div className="w-full max-w-[600px] overflow-hidden mx-auto">
+          <div className="w-full max-w-[600px] overflow-hidden mx-auto -mt-20">
             <Image className="object-cover w-full h-full" src={post.thumbnail} width={360} height={260} alt="" />
           </div>
           <div className="flex flex-col gap-4">
@@ -67,8 +67,7 @@ export const getStaticProps: GetServerSideProps = async (ctx: GetServerSideProps
     thumbnail: response.data.thumbnail.url,
     cover: response.data.cover.url,
   };
-  const teste = await prismic.getByUID('author', 'guilherme-leoni');
-  console.log(teste.data.posts);
+
   if (!post) {
     return {
       notFound: true,
