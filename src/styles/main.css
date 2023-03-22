@@ -3,9 +3,16 @@
 @tailwind utilities;
 
 body {
-  @apply bg-gray-900 text-gray-100;
   -webkit-font-smoothing: antialiased;
 }
 img {
   max-width: 100%;
+}
+
+.post_content p{
+  @apply text-lg
+}
+
+.post_content p + p{
+  @apply mt-4
 }
