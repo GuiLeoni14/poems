@@ -67,7 +67,8 @@ export const getStaticProps: GetServerSideProps = async (ctx: GetServerSideProps
     thumbnail: response.data.thumbnail.url,
     cover: response.data.cover.url,
   };
-
+  const teste = await prismic.getByUID('author', 'guilherme-leoni');
+  console.log(teste.data.posts);
   if (!post) {
     return {
       notFound: true,

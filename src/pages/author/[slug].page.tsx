@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useMemo } from 'react';
-import { useAuthor } from '../hooks/fetch/useAuthor';
+import { useAuthor } from '../../hooks/fetch/useAuthor';
 
 export default function Home() {
   const { data: queryAuthorResponse } = useAuthor({
@@ -10,28 +10,16 @@ export default function Home() {
   });
 
   const { posts, author, totalPages } = useMemo(
-    () => (queryAuthorResponse ? queryAuthorResponse : { posts: [], author: null, totalPages: 0 }),
+    () => (queryAuthorResponse ? queryAuthorResponse : { posts: [], author: {}, totalPages: 0 }),
     [queryAuthorResponse],
   );
 
   return (
-    <main className="max-w-6xl mx-auto">
-      {author && (
-        <div className="flex flex-col justify-center items-center gap-4">
-          <div className="rounded-full w-[160px] h-[160px] overflow-hidden">
-            <Image
-              className="w-full h-full"
-              src={author.picture.url}
-              width={160}
-              height={160}
-              alt={author.picture.alt ?? ''}
-            />
-          </div>
-          <strong className="font-inter text-4xl font-bold">{author.name}</strong>
-          <span className="text-lg text-stale-500 font-medium italic">{author.bio}</span>
-        </div>
-      )}
-      <main className="mx-auto grid grid-cols-1 gap-16 py-20">
+    <div>
+      <div>
+        <div></div>
+      </div>
+      <main className="container mx-auto grid grid-cols-1 gap-16 py-20">
         {posts?.map((post) => {
           return (
             <Link href={`/posts/${post.id}`} key={post.id}>
@@ -49,6 +37,6 @@ export default function Home() {
           );
         })}
       </main>
-    </main>
+    </div>
   );
 }
