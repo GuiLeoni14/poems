@@ -9,10 +9,46 @@ img {
   max-width: 100%;
 }
 
-.post_content p{
-  @apply text-lg
+.post_content p {
+  @apply text-lg;
 }
 
-.post_content p + p{
-  @apply mt-4
+.post_content p {
+  @apply mb-7 last:mb-0;
+}
+
+.post_content :is(h1, h2, h3, h4) {
+  @apply font-sans font-semibold tracking-tighter text-slate-800;
+}
+
+.post_content h1 {
+  @apply text-3xl mb-7 mt-12 first:mt-0 last:mb-0;
+}
+
+.post_content :is(h1, h2) {
+  @apply text-3xl mb-7 mt-12 first:mt-0 last:mb-0;
+}
+
+.post_content :is(h3) {
+  @apply text-2xl mb-7 last:mb-0;
+}
+
+.post_content :is(h4) {
+  @apply text-xl mb-7 last:mb-0;
+}
+
+.post_content :is(ul, ol) {
+  @apply mb-7 pl-4 last:mb-0 md:pl-6;
+}
+
+.post_content ul li {
+  @apply mb-1 list-disc pl-1 last:mb-0 md:pl-2;
+}
+
+.post_content ol li {
+  @apply mb-1 list-decimal pl-1 last:mb-0 md:pl-2;
+}
+
+.post_content pre {
+  @apply mb-7 rounded bg-slate-100 p-4 text-sm last:mb-0 md:p-8 md:text-lg;
 }

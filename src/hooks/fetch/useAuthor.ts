@@ -30,13 +30,13 @@ interface GetAuthorResponse {
   totalPages: number;
 }
 
-export const getAuthor = async (authorUID: string, page = 1): Promise<GetAuthorResponse> => {
+export const getAuthor = async (authorUID: string, page = 1, pageSize = 2): Promise<GetAuthorResponse> => {
   const prismicClient = getPrismicClient();
   const author = await prismicClient.getByUID('author', authorUID);
   const authorPosts = author.data.posts.map((post: any) => post.post.id);
 
-  const start = (page - 1) * 10;
-  const end = start + 10;
+  const start = page;
+  const end = start + pageSize;
 
   const posts = await prismicClient
     .query([prismic.Predicates.in('document.id', authorPosts.slice(start, end))])
@@ -57,7 +57,6 @@ export const getAuthor = async (authorUID: string, page = 1): Promise<GetAuthorR
         };
       });
     });
-
   return {
     author: {
       uid: author.uid,
@@ -66,12 +65,12 @@ export const getAuthor = async (authorUID: string, page = 1): Promise<GetAuthorR
       picture: author.data.picture,
     },
     posts,
-    totalPages: Math.ceil(posts.length / 10),
+    totalPages: Math.ceil(authorPosts.length / pageSize),
   };
 };
 
-export const useAuthor = ({ uid, page }: { uid: string; page: number }) => {
-  return useQuery(['author', uid, page], () => getAuthor(uid, page), {
+export const useAuthor = ({ uid, page, pageSize }: { uid: string; page: number; pageSize?: number }) => {
+  return useQuery(['author', uid, page], () => getAuthor(uid, page, pageSize), {
     keepPreviousData: true, // mantém os dados da página anterior enquanto carrega a próxima página
   });
 };

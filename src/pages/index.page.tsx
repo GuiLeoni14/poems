@@ -1,18 +1,66 @@
 import Image from 'next/image';
-import { useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { PostCard } from '../components/PostCard';
 import { useAuthor } from '../hooks/fetch/useAuthor';
 
+type Post = {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  thumbnail: string;
+  date: string;
+  cover: string;
+};
+
 export default function Home() {
+  const isDisabled = useRef(false);
+  const loaderNewPostsObserverRef = useRef<null | HTMLDivElement>(null);
+  const [actualPage, setActualPage] = useState(1);
+  const [postsGrid, setPostsGrid] = useState<Post[]>([]);
+
   const { data: queryAuthorResponse, isLoading } = useAuthor({
     uid: 'guilherme-leoni',
-    page: 1,
+    page: actualPage,
+    pageSize: 2,
   });
 
   const { posts, author, totalPages } = useMemo(
     () => (queryAuthorResponse ? queryAuthorResponse : { posts: [], author: null, totalPages: 0 }),
     [queryAuthorResponse],
   );
+
+  const isLoadingPosts = isLoading;
+
+  const isNotRenderNewPosts = actualPage >= totalPages;
+
+  const handleMountNewPosts = useCallback(async (entries: IntersectionObserverEntryInit[]) => {
+    const target = entries[0];
+    if (target.isIntersecting && isDisabled.current === false) {
+      isDisabled.current = true;
+      setActualPage((state) => state + 2);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (isNotRenderNewPosts) return;
+    const option = {
+      root: null,
+      rootMargin: '20px',
+      threshold: 0,
+    };
+    const observer = new IntersectionObserver(handleMountNewPosts, option);
+    if (loaderNewPostsObserverRef.current) observer.observe(loaderNewPostsObserverRef.current);
+  }, [handleMountNewPosts, isNotRenderNewPosts]);
+
+  useEffect(() => {
+    if (posts && posts.length > 0) {
+      setPostsGrid((state) => {
+        return [...state, ...posts];
+      });
+      isDisabled.current = false;
+    }
+  }, [posts]);
 
   return (
     <main className="max-w-6xl mx-auto">
@@ -39,7 +87,7 @@ export default function Home() {
         </div>
       )}
       <main className="mx-auto grid grid-cols-1 gap-16 py-20">
-        {posts?.map((post) => {
+        {postsGrid.map((post) => {
           return (
             <PostCard
               key={post.id}
@@ -70,6 +118,13 @@ export default function Home() {
           </>
         )}
       </main>
+      <button onClick={() => setActualPage((state) => state + 2)}>Carregar mais</button>
+      {/* <div
+        className={classNames('w-full block h-2', {
+          'h-0 w-0 hidden': isNotRenderNewPosts,
+        })}
+        ref={loaderNewPostsObserverRef}
+      /> */}
     </main>
   );
 }

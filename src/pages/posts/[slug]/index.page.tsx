@@ -29,7 +29,7 @@ export default function PagePost({ post }: PagePostProps) {
           <div className="w-full max-w-[600px] overflow-hidden mx-auto -mt-20">
             <Image className="object-cover w-full h-full" src={post.thumbnail} width={360} height={260} alt="" />
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 flex-1">
             <strong className="text-4xl font-bold text-gray-800 font-inter">{post.title}</strong>
             <span className="italic text-gray-500">{post.date}</span>
             <p className="text-lg">{post.excerpt}</p>
