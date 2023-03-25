@@ -6,12 +6,13 @@ interface PostCardProps {
   title: string;
   thumbnail: string;
   excerpt: string;
+  authorId: string;
   date: string;
 }
 
-export function PostCard({ id, title, excerpt, thumbnail, date }: PostCardProps) {
+export function PostCard({ id, title, excerpt, thumbnail, date, authorId }: PostCardProps) {
   return (
-    <Link href={`/posts/${id}`} key={id}>
+    <Link href={`/author/${authorId}/posts/${id}`} key={id}>
       <div key={id} className="flex items-stretch gap-4">
         <div className="w-full max-w-[360px] overflow-hidden">
           <Image className="object-cover" src={thumbnail} width={360} height={260} alt="" />

@@ -4,9 +4,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { PostCard } from '../../components/PostCard';
-import { useAuthor } from '../../hooks/fetch/useAuthor';
-import { getPrismicClient } from '../../lib/prismicClient';
+import { PostCard } from '../../../components/PostCard';
+import { useAuthor } from '../../../hooks/fetch/useAuthor';
+import { getPrismicClient } from '../../../lib/prismicClient';
 
 type Post = {
   id: string;
@@ -112,6 +112,7 @@ export default function PageAuthor({ author }: PageAuthorProps) {
           return (
             <PostCard
               key={post.id}
+              authorId={author.uid as string}
               id={post.id}
               title={post.title}
               thumbnail={post.thumbnail}
@@ -157,7 +158,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export const getStaticProps: GetStaticProps<PageAuthorProps> = async (ctx) => {
-  const authorUID = ctx.params?.slug as string;
+  const authorUID = ctx.params?.authorSlug as string;
 
   const prismic = await getPrismicClient({
     previewData: ctx.previewData,
