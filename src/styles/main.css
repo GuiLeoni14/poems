@@ -4,21 +4,18 @@
 
 body {
   -webkit-font-smoothing: antialiased;
+  @apply bg-gray-50 dark:bg-gray-700 transition-colors
 }
 img {
   max-width: 100%;
 }
 
 .post_content p {
-  @apply text-lg;
-}
-
-.post_content p {
-  @apply mb-7 last:mb-0;
+  @apply text-lg mb-7 dark:text-gray-100 last:mb-0;
 }
 
 .post_content :is(h1, h2, h3, h4) {
-  @apply font-sans font-semibold tracking-tighter text-slate-800;
+  @apply font-sans font-semibold tracking-tighter text-slate-800 dark:text-gray-100;
 }
 
 .post_content h1 {
@@ -49,6 +46,9 @@ img {
   @apply mb-1 list-decimal pl-1 last:mb-0 md:pl-2;
 }
 
+.post_content * {
+  @apply dark:text-gray-100
+}
 .post_content pre {
-  @apply mb-7 rounded bg-slate-100 p-4 text-sm last:mb-0 md:p-8 md:text-lg;
+  @apply mb-7 rounded bg-slate-100 p-4 text-sm dark:bg-gray-900 last:mb-0 md:p-8 md:text-lg;
 }

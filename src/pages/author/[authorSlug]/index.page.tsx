@@ -96,8 +96,8 @@ export default function PageAuthor({ author }: PageAuthorProps) {
               alt={author.picture.alt ?? ''}
             />
           </div>
-          <strong className="font-inter text-4xl font-bold">{author.name}</strong>
-          <span className="text-lg text-stale-500 font-medium italic">{author.bio}</span>
+          <strong className="font-inter text-4xl font-bold dark:text-gray-100">{author.name}</strong>
+          <span className="text-lg text-stale-500 font-medium italic dark:text-gray-100">{author.bio}</span>
         </div>
       )}
       {!author && (

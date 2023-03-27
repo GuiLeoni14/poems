@@ -26,14 +26,14 @@ export default function PagePost({ post }: PagePostProps) {
           backgroundImage: `url('${post.cover}')`,
         }}
       ></div>
-      <div className="container max-w-6xl mx-auto -mt-40 bg-white p-4 shadow-2xl">
+      <div className="container max-w-6xl mx-auto -mt-40 bg-white p-4 shadow-2xl dark:bg-gray-700">
         <Link href={`/author/${router.query.authorSlug}`}>
-          <span className="">← Back to articles</span>
+          <span className="font-semibold dark:text-gray-200">← Back to articles</span>
         </Link>
-        <div className="flex flex-col gap-4 flex-1">
-          <strong className="text-4xl font-bold text-gray-800 font-inter">{post.title}</strong>
-          <span className="italic text-gray-500">{post.date}</span>
-          <p className="text-lg font-medium">{post.excerpt}</p>
+        <div className="flex flex-col gap-4 flex-1 mt-16">
+          <strong className="text-4xl font-bold text-gray-800 font-inter dark:text-gray-100">{post.title}</strong>
+          <span className="italic text-gray-500 dark:text-gray-200">{post.date}</span>
+          <p className="text-lg font-medium dark:text-gray-200">{post.excerpt}</p>
         </div>
         <div className="mt-16 post_content" dangerouslySetInnerHTML={{ __html: post.content }} />
       </div>

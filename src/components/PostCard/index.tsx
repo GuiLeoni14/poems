@@ -18,9 +18,9 @@ export function PostCard({ id, title, excerpt, thumbnail, date, authorId }: Post
           <Image className="object-cover" src={thumbnail} width={360} height={260} alt="" />
         </div>
         <div className="flex flex-col gap-4">
-          <strong className="text-4xl font-bold text-gray-800 font-inter">{title}</strong>
-          <span className="italic text-gray-500">{date}</span>
-          <p className="text-lg">{excerpt}</p>
+          <strong className="text-4xl font-bold text-gray-800 font-inter dark:text-gray-100">{title}</strong>
+          <span className="italic text-gray-500 dark:text-gray-200">{date}</span>
+          <p className="text-lg dark:text-gray-100">{excerpt}</p>
         </div>
       </div>
     </Link>
