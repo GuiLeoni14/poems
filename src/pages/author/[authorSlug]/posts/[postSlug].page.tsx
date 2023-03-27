@@ -26,7 +26,7 @@ export default function PagePost({ post }: PagePostProps) {
           backgroundImage: `url('${post.cover}')`,
         }}
       ></div>
-      <div className="container max-w-6xl mx-auto -mt-40 bg-white p-4 shadow-2xl dark:bg-gray-700">
+      <div className="container max-w-6xl mx-auto -mt-10 bg-white p-4 shadow-2xl dark:bg-gray-700">
         <Link href={`/author/${router.query.authorSlug}`}>
           <span className="font-semibold dark:text-gray-200">← Back to articles</span>
         </Link>

@@ -51,8 +51,6 @@ export default function PageAuthor({ author }: PageAuthorProps) {
     [queryAuthorResponse],
   );
 
-  const isLoadingPosts = isLoading;
-
   const isNotRenderNewPosts = actualPage >= totalPages;
 
   const handleMountNewPosts = useCallback(async (entries: IntersectionObserverEntryInit[]) => {
@@ -83,8 +81,13 @@ export default function PageAuthor({ author }: PageAuthorProps) {
     }
   }, [posts]);
 
+  useEffect(() => {
+    // por conta do reactStrictMode
+    return () => setPostsGrid([]);
+  }, []);
+
   return (
-    <main className="max-w-6xl mx-auto">
+    <main className="max-w-6xl mx-auto py-20">
       {author && (
         <div className="flex flex-col justify-center items-center gap-4">
           <div className="rounded-full w-[160px] h-[160px] overflow-hidden">
@@ -107,7 +110,7 @@ export default function PageAuthor({ author }: PageAuthorProps) {
           <div className="w-[40%] h-3 bg-gray-200"></div>
         </div>
       )}
-      <main className="mx-auto grid grid-cols-1 gap-16 py-20">
+      <main className="mx-auto grid grid-cols-1 gap-16 mt-20">
         {postsGrid.map((post) => {
           return (
             <PostCard

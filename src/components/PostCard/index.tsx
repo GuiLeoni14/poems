@@ -14,8 +14,8 @@ export function PostCard({ id, title, excerpt, thumbnail, date, authorId }: Post
   return (
     <Link href={`/author/${authorId}/posts/${id}`} key={id}>
       <div key={id} className="flex items-stretch gap-4">
-        <div className="w-full max-w-[360px] overflow-hidden">
-          <Image className="object-cover" src={thumbnail} width={360} height={260} alt="" />
+        <div className="w-full max-w-[360px] overflow-hidden h-[250px]">
+          <Image className="object-cover w-full h-full" src={thumbnail} width={360} height={260} alt="" />
         </div>
         <div className="flex flex-col gap-4">
           <strong className="text-4xl font-bold text-gray-800 font-inter dark:text-gray-100">{title}</strong>
