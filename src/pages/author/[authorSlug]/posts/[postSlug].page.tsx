@@ -1,4 +1,4 @@
-import { GetServerSideProps, GetServerSidePropsContext, GetStaticPaths } from 'next';
+import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
@@ -28,14 +28,16 @@ export default function PagePost({ post }: PagePostProps) {
       ></div>
       <div className="container max-w-6xl mx-auto -mt-10 bg-white p-4 shadow-2xl dark:bg-gray-700">
         <Link href={`/author/${router.query.authorSlug}`}>
-          <span className="font-semibold dark:text-gray-200">← Back to articles</span>
+          <span className="font-semibold dark:text-gray-200">← Voltar aos artigos</span>
         </Link>
         <div className="flex flex-col gap-4 flex-1 mt-16">
-          <strong className="text-4xl font-bold text-gray-800 font-inter dark:text-gray-100">{post.title}</strong>
+          <strong className="font-bold text-gray-800 font-inter dark:text-gray-100 text-3xl md:text-4xl">
+            {post.title}
+          </strong>
           <span className="italic text-gray-500 dark:text-gray-200">{post.date}</span>
-          <p className="text-lg font-medium dark:text-gray-200">{post.excerpt}</p>
+          <p className="font-medium dark:text-gray-200 leading-relaxed md:text-lg md:leading-relaxed">{post.excerpt}</p>
         </div>
-        <div className="mt-16 post_content" dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div className="post_content mt-16" dangerouslySetInnerHTML={{ __html: post.content }} />
       </div>
     </main>
   );
@@ -48,7 +50,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetServerSideProps = async (ctx: GetServerSidePropsContext) => {
+export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext) => {
   const prismic = getPrismicClient({
     previewData: ctx.previewData,
   });
@@ -95,6 +97,7 @@ export const getStaticProps: GetServerSideProps = async (ctx: GetServerSideProps
 
     return {
       props: { post },
+      revalidate: 60 * 2, // 2 minutes
     };
   } catch (error) {
     return {

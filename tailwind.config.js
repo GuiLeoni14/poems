@@ -19,6 +19,9 @@ module.exports = {
           900: '#09090A',
         },
       },
+      container: {
+        padding: '1rem',
+      },
     },
   },
   plugins: [],
