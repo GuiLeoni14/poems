@@ -3,7 +3,7 @@ import * as prismicNext from '@prismicio/next';
 import { PreviewData } from 'next';
 
 type TConfigTypePrismic = {
-  req?: prismic.HttpRequestLike;
+  req?: prismic.HttpRequestLike | any;
   previewData: PreviewData;
 };
 // eles comendam criar em formato de função para exportar o client do prismic pois assim terá um nova instancia para cada utilização(sempre usar um client novo)
