@@ -1,5 +1,4 @@
 import { GetStaticProps, GetStaticPropsContext } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { RichText } from 'prismic-dom';
 import { AuthorCard } from '../components/AuthorCard';
@@ -23,22 +22,14 @@ export default function Home({ authors }: HomeProps) {
   console.log(authors);
   return (
     <main className="container max-w-6xl mx-auto py-20">
-      <div className="flex items-center">
-        <div className="max-w-[600px]">
-          <h1 className="text-4xl text-stale-500 font-bold dark:text-gray-100">
-            Poemas de poetas que talvez aprenderam a amar
-          </h1>
-          <p className="text-xl text-stale-500 font-medium italic dark:text-gray-100 mt-2">
-            Os poetas não só sabem amar como são capazes de expressar esse sentimento de forma tão sublime que
-            transformam o amor em poesia, e a poesia em amor eterno.
-          </p>
-        </div>
-        <div>
-          <Image src={`/img/b_home.png`} width={600} height={400} alt="" />
-        </div>
-      </div>
-      <h2 className="text-3xl text-stale-500 font-bold text-center dark:text-gray-100 mt-20">Autores</h2>
-      <div className="grid grid-cols-2 gap-14 mt-10">
+      <h2 className="text-4xl text-stale-500 font-bold dark:text-gray-100 text-center">
+        Poetas que talvez tenham aprendido a amar
+      </h2>
+      <p className="text-center text-xl text-stale-500 font-medium italic dark:text-gray-100 mt-2">
+        {`"Nos versos destes seres muitos já se perderam, alguns ainda estão presos neles e nem mesmo eles sabem como sair
+        de lá"`}
+      </p>
+      <div className="grid grid-cols-2 gap-10 mt-20">
         {authors.map((author) => {
           return (
             <Link key={author.uid} href={`/author/${author.uid}`}>
@@ -74,5 +65,6 @@ export const getStaticProps: GetStaticProps = async (ctx: GetStaticPropsContext)
     props: {
       authors,
     },
+    revalidate: 10 * 60,
   };
 };
