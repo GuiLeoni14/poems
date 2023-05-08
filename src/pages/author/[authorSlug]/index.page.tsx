@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import { GetStaticPaths, GetStaticProps } from 'next';
+import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
@@ -87,71 +88,85 @@ export default function PageAuthor({ author }: PageAuthorProps) {
   }, []);
 
   return (
-    <main className="max-w-6xl mx-auto py-20">
-      {author && (
-        <div className="flex flex-col justify-center items-center gap-4 container mx-auto">
-          <div className="rounded-full w-[160px] h-[160px] overflow-hidden">
-            <Image
-              className="w-full h-full"
-              src={author.picture.url}
-              width={160}
-              height={160}
-              alt={author.picture.alt ?? ''}
-            />
+    <>
+      <Head>
+        <title>{author.name}</title>
+        <meta name="description" content={author.bio} />
+        <meta property="og:image" content={author.picture.url} />
+        <meta property="og:image:secure_url" content={author.picture.url} />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="400" />
+        <meta property="og:image:height" content="300" />
+        <meta property="og:image:alt" content={author.name} />
+      </Head>
+      <main className="max-w-6xl mx-auto py-20">
+        {author && (
+          <div className="flex flex-col justify-center items-center gap-4 container mx-auto">
+            <div className="rounded-full w-[160px] h-[160px] overflow-hidden">
+              <Image
+                className="w-full h-full"
+                src={author.picture.url}
+                width={160}
+                height={160}
+                alt={author.picture.alt ?? ''}
+              />
+            </div>
+            <strong className="font-inter font-bold dark:text-gray-100 text-center text-3xl md:text-4xl">
+              {author.name}
+            </strong>
+            <span className="text-lg text-stale-500 font-medium italic dark:text-gray-100 text-center">
+              {author.bio}
+            </span>
           </div>
-          <strong className="font-inter font-bold dark:text-gray-100 text-center text-3xl md:text-4xl">
-            {author.name}
-          </strong>
-          <span className="text-lg text-stale-500 font-medium italic dark:text-gray-100 text-center">{author.bio}</span>
-        </div>
-      )}
-      {!author && (
-        <div className="flex flex-col gap-4 justify-center items-center">
-          <div className="w-[160px] aspect-square bg-gray-200 rounded-full"></div>
-          <div className="w-[20%] h-6 bg-gray-200"></div>
-          <div className="w-[40%] h-3 bg-gray-200"></div>
-        </div>
-      )}
-      <main className="grid grid-cols-1 gap-16 container mx-auto mt-16 md:mt-20">
-        {postsGrid.map((post) => {
-          return (
-            <PostCard
-              key={post.id}
-              authorId={author.uid as string}
-              id={post.id}
-              title={post.title}
-              thumbnail={post.thumbnail}
-              date={post.date}
-              excerpt={post.excerpt}
-            />
-          );
-        })}
-        {isLoading && (
-          <>
-            {Array(3)
-              .fill('')
-              .map((_, index) => {
-                return (
-                  <div className="flex gap-4 w-full flex-col md:flex-row" key={index}>
-                    <div className="animate-pulse bg-gray-200 w-full  max-w-[360px] h-[300px] md:h-[270px]"></div>
-                    <div className="w-full h-full gap-4 flex flex-col">
-                      <div className="animate-pulse w-[80%] h-[20%] bg-gray-200"></div>
-                      <div className="animate-pulse w-[20%] h-[10%] bg-gray-200"></div>
-                      <div className="animate-pulse w-[100%] h-[100%] bg-gray-200"></div>
-                    </div>
-                  </div>
-                );
-              })}
-          </>
         )}
+        {!author && (
+          <div className="flex flex-col gap-4 justify-center items-center">
+            <div className="w-[160px] aspect-square bg-gray-200 rounded-full"></div>
+            <div className="w-[20%] h-6 bg-gray-200"></div>
+            <div className="w-[40%] h-3 bg-gray-200"></div>
+          </div>
+        )}
+        <main className="grid grid-cols-1 gap-16 container mx-auto mt-16 md:mt-20">
+          {postsGrid.map((post) => {
+            return (
+              <PostCard
+                key={post.id}
+                authorId={author.uid as string}
+                id={post.id}
+                title={post.title}
+                thumbnail={post.thumbnail}
+                date={post.date}
+                excerpt={post.excerpt}
+              />
+            );
+          })}
+          {isLoading && (
+            <>
+              {Array(3)
+                .fill('')
+                .map((_, index) => {
+                  return (
+                    <div className="flex gap-4 w-full flex-col md:flex-row" key={index}>
+                      <div className="animate-pulse bg-gray-200 w-full  max-w-[360px] h-[300px] md:h-[270px]"></div>
+                      <div className="w-full h-full gap-4 flex flex-col">
+                        <div className="animate-pulse w-[80%] h-[20%] bg-gray-200"></div>
+                        <div className="animate-pulse w-[20%] h-[10%] bg-gray-200"></div>
+                        <div className="animate-pulse w-[100%] h-[100%] bg-gray-200"></div>
+                      </div>
+                    </div>
+                  );
+                })}
+            </>
+          )}
+        </main>
+        <div
+          className={classNames('w-full block h-2', {
+            'h-0 w-0 hidden': isNotRenderNewPosts,
+          })}
+          ref={loaderNewPostsObserverRef}
+        />
       </main>
-      <div
-        className={classNames('w-full block h-2', {
-          'h-0 w-0 hidden': isNotRenderNewPosts,
-        })}
-        ref={loaderNewPostsObserverRef}
-      />
-    </main>
+    </>
   );
 }
 
