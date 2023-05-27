@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { RichText } from 'prismic-dom';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -100,6 +101,9 @@ export default function PageAuthor({ author }: PageAuthorProps) {
         <meta property="og:image:alt" content={author.name} />
       </Head>
       <main className="mx-auto max-w-6xl py-20">
+        <Link href="/" className="mb-10 block">
+          <span className="block text-center font-semibold dark:text-gray-200">← Voltar aos autores</span>
+        </Link>
         {author && (
           <div className="container mx-auto flex flex-col items-center justify-center gap-4">
             <div className="h-[160px] w-[160px] overflow-hidden rounded-full">

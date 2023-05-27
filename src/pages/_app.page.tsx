@@ -2,6 +2,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import type { AppProps } from 'next/app';
 import { useEffect, useState } from 'react';
 import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
+import { Footer } from '../layout/Footer';
 import { queryClient } from '../lib/queryClient';
 import '../styles/main.css';
 
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <BsFillSunFill size={30} className="bg-transparent fill-yellow-500" />
         )}
       </div>
+      <Footer />
     </QueryClientProvider>
   );
 }
