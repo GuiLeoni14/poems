@@ -18,12 +18,12 @@ export default function App({ Component, pageProps }: AppProps) {
       <div
         onClick={() => setIsDarkMode((state) => !state)}
         role="button"
-        className="fixed top-10 right-10 z-20 hover:scale-105 transition-all"
+        className="fixed top-10 right-10 z-20 transition-all hover:scale-105"
       >
         {isDarkMode ? (
           <BsFillMoonStarsFill size={30} className="fill-white" />
         ) : (
-          <BsFillSunFill size={30} className="fill-yellow-500 bg-transparent" />
+          <BsFillSunFill size={30} className="bg-transparent fill-yellow-500" />
         )}
       </div>
     </QueryClientProvider>

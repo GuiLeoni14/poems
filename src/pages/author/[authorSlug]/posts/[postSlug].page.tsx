@@ -32,21 +32,21 @@ export default function PagePost({ post }: PagePostProps) {
       </Head>
       <main className="pb-10">
         <div
-          className="h-[400px] w-full bg-center bg-no-repeat bg-cover"
+          className="h-[400px] w-full bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: `url('${post.cover}')`,
           }}
         ></div>
-        <div className="container max-w-6xl mx-auto -mt-10 bg-white p-4 shadow-2xl dark:bg-gray-700">
+        <div className="container mx-auto -mt-10 max-w-6xl bg-white p-4 shadow-2xl dark:bg-gray-700">
           <Link href={`/author/${router.query.authorSlug}`}>
             <span className="font-semibold dark:text-gray-200">← Voltar aos artigos</span>
           </Link>
-          <div className="flex flex-col gap-4 flex-1 mt-16">
-            <strong className="font-bold text-gray-800 font-inter dark:text-gray-100 text-3xl md:text-4xl">
+          <div className="mt-16 flex flex-1 flex-col gap-4">
+            <strong className="font-inter text-3xl font-bold text-gray-800 dark:text-gray-100 md:text-4xl">
               {post.title}
             </strong>
             <span className="italic text-gray-500 dark:text-gray-200">{post.date}</span>
-            <p className="font-medium dark:text-gray-200 leading-relaxed md:text-lg md:leading-relaxed">
+            <p className="font-medium leading-relaxed dark:text-gray-200 md:text-lg md:leading-relaxed">
               {post.excerpt}
             </p>
           </div>

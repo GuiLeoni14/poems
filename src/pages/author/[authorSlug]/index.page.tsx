@@ -99,34 +99,34 @@ export default function PageAuthor({ author }: PageAuthorProps) {
         <meta property="og:image:height" content="300" />
         <meta property="og:image:alt" content={author.name} />
       </Head>
-      <main className="max-w-6xl mx-auto py-20">
+      <main className="mx-auto max-w-6xl py-20">
         {author && (
-          <div className="flex flex-col justify-center items-center gap-4 container mx-auto">
-            <div className="rounded-full w-[160px] h-[160px] overflow-hidden">
+          <div className="container mx-auto flex flex-col items-center justify-center gap-4">
+            <div className="h-[160px] w-[160px] overflow-hidden rounded-full">
               <Image
-                className="w-full h-full"
+                className="h-full w-full"
                 src={author.picture.url}
                 width={160}
                 height={160}
                 alt={author.picture.alt ?? ''}
               />
             </div>
-            <strong className="font-inter font-bold dark:text-gray-100 text-center text-3xl md:text-4xl">
+            <strong className="text-center font-inter text-3xl font-bold dark:text-gray-100 md:text-4xl">
               {author.name}
             </strong>
-            <span className="text-lg text-stale-500 font-medium italic dark:text-gray-100 text-center">
+            <span className="text-stale-500 text-center text-lg font-medium italic dark:text-gray-100">
               {author.bio}
             </span>
           </div>
         )}
         {!author && (
-          <div className="flex flex-col gap-4 justify-center items-center">
-            <div className="w-[160px] aspect-square bg-gray-200 rounded-full"></div>
-            <div className="w-[20%] h-6 bg-gray-200"></div>
-            <div className="w-[40%] h-3 bg-gray-200"></div>
+          <div className="flex flex-col items-center justify-center gap-4">
+            <div className="aspect-square w-[160px] rounded-full bg-gray-200"></div>
+            <div className="h-6 w-[20%] bg-gray-200"></div>
+            <div className="h-3 w-[40%] bg-gray-200"></div>
           </div>
         )}
-        <main className="grid grid-cols-1 gap-16 container mx-auto mt-16 md:mt-20">
+        <main className="container mx-auto mt-16 grid grid-cols-1 gap-16 md:mt-20">
           {postsGrid.map((post) => {
             return (
               <PostCard
@@ -146,12 +146,12 @@ export default function PageAuthor({ author }: PageAuthorProps) {
                 .fill('')
                 .map((_, index) => {
                   return (
-                    <div className="flex gap-4 w-full flex-col md:flex-row" key={index}>
-                      <div className="animate-pulse bg-gray-200 w-full  max-w-[360px] h-[300px] md:h-[270px]"></div>
-                      <div className="w-full h-full gap-4 flex flex-col">
-                        <div className="animate-pulse w-[80%] h-[20%] bg-gray-200"></div>
-                        <div className="animate-pulse w-[20%] h-[10%] bg-gray-200"></div>
-                        <div className="animate-pulse w-[100%] h-[100%] bg-gray-200"></div>
+                    <div className="flex w-full flex-col gap-4 md:flex-row" key={index}>
+                      <div className="h-[300px] w-full max-w-[360px]  animate-pulse bg-gray-200 md:h-[270px]"></div>
+                      <div className="flex h-full w-full flex-col gap-4">
+                        <div className="h-[20%] w-[80%] animate-pulse bg-gray-200"></div>
+                        <div className="h-[10%] w-[20%] animate-pulse bg-gray-200"></div>
+                        <div className="h-[100%] w-[100%] animate-pulse bg-gray-200"></div>
                       </div>
                     </div>
                   );
@@ -160,8 +160,8 @@ export default function PageAuthor({ author }: PageAuthorProps) {
           )}
         </main>
         <div
-          className={classNames('w-full block h-2', {
-            'h-0 w-0 hidden': isNotRenderNewPosts,
+          className={classNames('block h-2 w-full', {
+            'hidden h-0 w-0': isNotRenderNewPosts,
           })}
           ref={loaderNewPostsObserverRef}
         />

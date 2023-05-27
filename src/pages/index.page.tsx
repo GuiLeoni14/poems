@@ -29,15 +29,15 @@ export default function Home({ authors }: HomeProps) {
           content="Nos versos destes seres muitos já se perderam, alguns ainda estão presos neles e nem mesmo eles sabem como sair de lá"
         />
       </Head>
-      <main className="container max-w-6xl mx-auto py-20">
-        <h2 className="text-4xl text-stale-500 font-bold dark:text-gray-100 text-center">
+      <main className="container mx-auto max-w-6xl py-20">
+        <h2 className="text-stale-500 text-center text-4xl font-bold dark:text-gray-100">
           Poetas que talvez tenham aprendido a amar
         </h2>
-        <p className="text-center text-xl text-stale-500 font-medium italic dark:text-gray-100 mt-2">
+        <p className="text-stale-500 mt-2 text-center text-xl font-medium italic dark:text-gray-100">
           {`"Nos versos destes seres muitos já se perderam, alguns ainda estão presos neles e nem mesmo eles sabem como sair
         de lá"`}
         </p>
-        <div className="grid grid-cols-2 gap-10 mt-20">
+        <div className="mt-20 grid grid-cols-2 gap-10">
           {authors.map((author) => {
             return (
               <Link key={author.uid} href={`/author/${author.uid}`}>
