@@ -37,7 +37,7 @@ export default function Home({ authors }: HomeProps) {
           {`"Nos versos destes seres muitos já se perderam, alguns ainda estão presos neles e nem mesmo eles sabem como sair
         de lá"`}
         </p>
-        <div className="mt-20 grid grid-cols-2 gap-10">
+        <div className="mt-20 grid grid-cols-1 gap-10 md:grid-cols-2">
           {authors.map((author) => {
             return (
               <Link key={author.uid} href={`/author/${author.uid}`}>
