@@ -50,7 +50,7 @@ export default function PagePost({ post }: PagePostProps) {
               {post.excerpt}
             </p>
           </div>
-          <div className="post_content mt-16" dangerouslySetInnerHTML={{ __html: post.content }} />
+          <div className="prose prose-slate mt-16" dangerouslySetInnerHTML={{ __html: post.content }} />
         </div>
       </main>
     </>
